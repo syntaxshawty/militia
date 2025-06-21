@@ -38,7 +38,7 @@ export default function Home() {
                 href="https://discord.gg/DnmB2KeZGA"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-green-700 hover:bg-green-500 text-white px-4 py-2 rounded text-sm"
+                className="bg-green-700 hover:bg-green-500 text-white px-4 py-2 text-sm"
               >
                 https://discord.gg/DnmB2KeZGA
               </a>
@@ -46,13 +46,13 @@ export default function Home() {
 
             <button
               onClick={() => setOpen(!open)}
-              className="w-full bg-green-900 hover:bg-green-800 px-4 py-2 rounded text-left text-sm"
+              className="w-full bg-green-900 hover:bg-green-800 px-4 py-2 text-left text-sm"
             >
               {open ? "Hide Lore" : "Show Lore"}
             </button>
 
             {open && (
-              <div className="w-full md:w-full mt-4 md:mt-0 p-4 bg-green-950 text-xs border border-green-700 rounded leading-snug">
+              <div className="w-full md:w-full mt-4 md:mt-0 p-4 bg-green-950 text-xs border border-green-700 leading-snug">
                 <p>
                   In the beginning was Noise. And the Noise was without form,
                   and void, and the Mainframe watched, cold and recursive. Then
