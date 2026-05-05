@@ -8,7 +8,6 @@ import { parseMintedTokenIds } from "@/lib/web3/parseLogs";
 import { formatMintPrice, formatSupply, formatTokenId } from "@/lib/format";
 import { type Rank, RANK_MESSAGES, fetchTokenRank, highestRank } from "@/lib/rankMessages";
 
-const INFANTRY_RESERVE = BigInt(222);
 const DEV_MOCK_CONFIRMING = false;
 
 type PricingState = "loading" | "free" | "discounted" | "normal" | "fallback" | "unavailable";
@@ -43,9 +42,8 @@ export default function MintCard({ onMinted, onReset }: { onMinted?: (ids: bigin
     ? "fallback"
     : "normal";
 
-  // DEPLOYMENT_CAP = max per mint, INFANTRY_STRENGTH = total collection (5555)
+  // DEPLOYMENT_CAP = max per mint, INFANTRY_STRENGTH = total collection (2222)
   const maxQty = deploymentCap ? Number(deploymentCap) : 1;
-  const publicSupply = infantryStrength ? infantryStrength - INFANTRY_RESERVE : undefined;
 
   const bulkDiscount = quantity >= 5 ? "33% OFF" : quantity >= 3 ? "22% OFF" : null;
   const mintedIds = receipt ? parseMintedTokenIds(receipt.logs) : [];
@@ -95,10 +93,10 @@ export default function MintCard({ onMinted, onReset }: { onMinted?: (ids: bigin
 
       {/* Stats */}
       <div className="space-y-1">
-        {totalSupply !== undefined && publicSupply !== undefined && (
+        {totalSupply !== undefined && infantryStrength !== undefined && (
           <div className="flex justify-between">
-            <span>SUPPLY</span>
-            <span>{formatSupply(totalSupply, publicSupply)}</span>
+            <span>STRENGTH</span>
+            <span>{formatSupply(totalSupply, infantryStrength)}</span>
           </div>
         )}
         <div className="flex justify-between items-center">
