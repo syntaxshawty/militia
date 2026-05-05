@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import ConnectWallet from "./ConnectWallet";
 import { useAccount } from "wagmi";
 import { useMiladyEligibility } from "@/lib/web3/reads";
 
@@ -53,7 +53,7 @@ export default function Header({ miladyMinimized, miladyHasBeenMinimized, milady
             ★
           </button>
         )}
-        <ConnectButton showBalance={false} />
+        <ConnectWallet />
       </div>
     </header>
   );
