@@ -6,7 +6,8 @@ import Header from "@/components/header/Header";
 import MintCard from "@/components/mint/MintCard";
 import MintedCarousel from "@/components/mint/MintedCarousel";
 import MiladyBenefitPopup from "@/components/mint/MiladyBenefitPopup";
-import SoldierBackground from "@/components/SoldierBackground";
+import dynamic from "next/dynamic";
+const BrailleAsciiAnimation = dynamic(() => import("@/components/BrailleAsciiAnimation"), { ssr: false });
 
 export default function Home() {
   const [loreOpen, setLoreOpen] = useState(false);
@@ -32,7 +33,20 @@ export default function Home() {
 
   return (
     <>
-    <SoldierBackground />
+    <div
+        aria-hidden
+        style={{
+          position: "fixed",
+          right: 0,
+          bottom: 0,
+          width: "50vw",
+          zIndex: 1,
+          pointerEvents: "none",
+          overflow: "hidden",
+        }}
+      >
+        <BrailleAsciiAnimation fps={8} />
+      </div>
     <div className="relative z-[2] min-h-screen text-green-500 font-mono">
       <Header
         miladyMinimized={miladyMinimized}
@@ -65,7 +79,7 @@ export default function Home() {
               {(!mintedIds.length || glitching) && (
                 <div className={mintedIds.length > 0 ? "absolute inset-0" : ""}>
                   <Image
-                    src="/mlitia-shroud.jpg"
+                    src="/militia-flicker.gif"
                     alt="Militia"
                     className={`w-full h-full object-cover border border-green-900 ${glitching ? "glitch" : ""}`}
                     width={500}
