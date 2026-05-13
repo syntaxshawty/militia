@@ -79,7 +79,7 @@ export default function Home() {
               {(!mintedIds.length || glitching) && (
                 <div className={mintedIds.length > 0 ? "absolute inset-0" : ""}>
                   <Image
-                    src="/militia-shroud.png"
+                    src="/mlitia-shroud.jpg"
                     alt="Militia"
                     className={`w-full h-full object-cover border border-green-900 ${glitching ? "glitch" : ""}`}
                     width={500}
