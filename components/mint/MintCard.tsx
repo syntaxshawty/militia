@@ -128,7 +128,7 @@ export default function MintCard({ onMinted, onReset }: { onMinted?: (ids: bigin
       <div className="text-xs space-y-1">
         {paused && <p className="text-green-700">MINTING PAUSED</p>}
         {pricingState === "free" && <p className="text-green-400">FREE MINT AVAILABLE</p>}
-        {pricingState === "discounted" && <p className="text-green-600">DISCOUNT APPLIED</p>}
+        <p className={`text-green-600 ${pricingState === "discounted" ? "visible" : "invisible"}`}>DISCOUNT APPLIED</p>
         {pricingState === "fallback" && <p className="text-yellow-600">ESTIMATED PRICE — LIVE QUOTE UNAVAILABLE</p>}
       </div>
 
