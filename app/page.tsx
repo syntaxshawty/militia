@@ -206,18 +206,6 @@ export default function LandingPage() {
           </form>
         </div>
 
-        {/* Status bar */}
-        <div
-          style={{
-            ...sunken,
-            margin: "0 2px 2px",
-            padding: "1px 4px",
-            fontSize: 10,
-            color: "#000000",
-          }}
-        >
-          Ready
-        </div>
       </div>
     </div>
   );
