@@ -52,7 +52,7 @@ export default function LandingPage() {
     <div
       style={{
         height: "100vh",
-        backgroundImage: "url('/win95-screenshot.png')",
+        backgroundImage: "url('/win95-no-cursor.png')",
         backgroundSize: "100% 100%",
         backgroundPosition: "center",
         display: "flex",
