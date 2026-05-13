@@ -8,4 +8,5 @@ export const env = {
   alchemyMainnet: requireEnv("NEXT_PUBLIC_ALCHEMY_MAINNET", process.env.NEXT_PUBLIC_ALCHEMY_MAINNET),
   walletConnectProjectId: requireEnv("NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID", process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID),
   soldiersCid: requireEnv("NEXT_PUBLIC_PINATA_SOLDIERS", process.env.NEXT_PUBLIC_PINATA_SOLDIERS),
+  metadataCid: requireEnv("NEXT_PUBLIC_PINATA_METADATA", process.env.NEXT_PUBLIC_PINATA_METADATA),
 } as const;

@@ -12,7 +12,12 @@ function tokenImage(tokenId: bigint): string {
   return `${GATEWAY}/ipfs/${env.soldiersCid}/${tokenId.toString()}.png`;
 }
 
-export default function MintedCarousel({ tokenIds }: { tokenIds: bigint[] }) {
+interface MintedCarouselProps {
+  tokenIds: bigint[];
+  onIndexChange?: (index: number) => void;
+}
+
+export default function MintedCarousel({ tokenIds, onIndexChange }: MintedCarouselProps) {
   const [current, setCurrent] = useState(0);
   const [slideClass, setSlideClass] = useState("");
 
@@ -20,31 +25,34 @@ export default function MintedCarousel({ tokenIds }: { tokenIds: bigint[] }) {
   const total = tokenIds.length;
 
   function goNext() {
+    const next = Math.min(total - 1, current + 1);
     setSlideClass("slide-from-right");
-    setCurrent((c) => Math.min(total - 1, c + 1));
+    setCurrent(next);
+    onIndexChange?.(next);
   }
 
   function goPrev() {
+    const next = Math.max(0, current - 1);
     setSlideClass("slide-from-left");
-    setCurrent((c) => Math.max(0, c - 1));
+    setCurrent(next);
+    onIndexChange?.(next);
   }
 
   if (!tokenId) return null;
 
   return (
     <div className="w-full">
-      <div className="overflow-hidden border border-green-900">
+      <div className="relative aspect-[409/512] overflow-hidden border border-green-900">
         <div
           key={current}
-          className={slideClass}
+          className={`absolute inset-0 ${slideClass}`}
           onAnimationEnd={() => setSlideClass("")}
         >
           <Image
             src={tokenImage(tokenId)}
             alt={formatTokenId(tokenId)}
-            width={500}
-            height={500}
-            className="w-full h-auto"
+            fill
+            className="object-cover"
           />
         </div>
       </div>
