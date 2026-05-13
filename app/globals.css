@@ -12,15 +12,12 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@font-face {
-  font-family: "Militant";
-  src: url(/public/FSEX300.ttf) format("truetype");
-}
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: "Times New Roman", Times, serif;
+  overflow-y: scroll;
 }
 
 @keyframes glitch {
@@ -59,7 +56,7 @@ body {
 }
 
 .glitch {
-  animation: glitch 2.6s steps(1, end) forwards;
+  animation: glitch 4.6s steps(1, end) forwards;
 }
 
 @keyframes slide-from-right {
