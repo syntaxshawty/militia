@@ -122,6 +122,8 @@ export default function LandingPage() {
             alignItems: "center",
             justifyContent: "center",
             gap: 12,
+            minHeight: 0,
+            overflow: "hidden",
             flex: 1,
           }}
         >
@@ -132,7 +134,7 @@ export default function LandingPage() {
             width={300}
             height={300}
             unoptimized
-            style={{ imageRendering: "pixelated" }}
+            style={{ imageRendering: "pixelated", maxWidth: "100%", height: "auto", flexShrink: 1, minHeight: 0 }}
           />
 
           <p
