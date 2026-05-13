@@ -45,7 +45,7 @@ export default function Home() {
           overflow: "hidden",
         }}
       >
-        <BrailleAsciiAnimation fps={8} />
+        <BrailleAsciiAnimation fps={5} />
       </div>
     <div className="relative z-[2] min-h-screen text-green-500 font-mono">
       <Header
