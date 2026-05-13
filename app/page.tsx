@@ -51,10 +51,8 @@ export default function LandingPage() {
   return (
     <div
       style={{
+        position: "relative",
         height: "100vh",
-        backgroundImage: "url('/win95-no-cursor.png')",
-        backgroundSize: "100% 100%",
-        backgroundPosition: "center",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -62,6 +60,14 @@ export default function LandingPage() {
         cursor: "default",
       }}
     >
+      <Image
+        src="/win95-no-cursor.png"
+        alt=""
+        fill
+        priority
+        quality={100}
+        className="object-cover -z-10 w-full h-full object-fill"
+      />
       {/* Dialog window */}
       <div
         style={{
