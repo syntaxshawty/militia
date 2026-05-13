@@ -19,16 +19,33 @@ const sunken = {
 export default function LandingPage() {
   const router = useRouter();
   const [value, setValue] = useState("");
-  const [error, setError] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | false>(false);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const trimmed = value.trim();
     if (!trimmed) {
-      setError(true);
+      setError("You cannot be fearless.");
       return;
     }
-    router.push("/mint");
+
+    setSubmitting(true);
+    setError(false);
+
+    try {
+      const res = await fetch("/api/fears", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fear: trimmed }),
+      });
+
+      if (!res.ok) throw new Error();
+      router.push("/mint");
+    } catch {
+      setError("Idk my bad lol.");
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -164,12 +181,13 @@ export default function LandingPage() {
 
             {error && (
               <p style={{ fontSize: 11, color: "#000000", margin: 0 }}>
-                You cannot be fearless.
+                {error}
               </p>
             )}
 
             <button
               type="submit"
+              disabled={submitting}
               style={{
                 ...raised,
                 background: "#c0c0c0",
@@ -178,12 +196,12 @@ export default function LandingPage() {
                 fontSize: 11,
                 fontFamily: FONT,
                 cursor: "default",
-                color: "#000000",
+                color: submitting ? "#808080" : "#000000",
                 minWidth: 75,
                 marginTop: 4,
               }}
             >
-              OK
+              {submitting ? "Please wait..." : "OK"}
             </button>
           </form>
         </div>
