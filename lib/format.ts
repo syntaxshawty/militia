@@ -12,7 +12,10 @@ export function formatMintPrice(wei: bigint): string {
  * Formats minted/max supply as a progress string.
  * e.g. formatSupply(123n, 5000n) → "123 / 5000"
  */
-export function formatSupply(total: bigint, cap: bigint): string {
+export function formatSupply(
+  total: bigint,
+  cap: bigint
+): string {
   return `${total.toString()} / ${cap.toString()}`;
 }
 
@@ -20,7 +23,10 @@ export function formatSupply(total: bigint, cap: bigint): string {
  * Returns mint progress as a percentage (0–100), clamped.
  * e.g. formatMintProgress(250n, 5000n) → 5
  */
-export function mintProgressPercent(total: bigint, cap: bigint): number {
+export function mintProgressPercent(
+  total: bigint,
+  cap: bigint
+): number {
   if (cap === BigInt(0)) return 0;
   return Math.min(100, Number((total * BigInt(100)) / cap));
 }
@@ -46,8 +52,11 @@ export function formatTokenId(tokenId: bigint): string {
  * Returns null if the timestamp is in the past.
  * e.g. "2d 4h 30m"
  */
-export function formatCountdown(startTimeSeconds: bigint): string | null {
-  const diffMs = Number(startTimeSeconds) * 1000 - Date.now();
+export function formatCountdown(
+  startTimeSeconds: bigint
+): string | null {
+  const diffMs =
+    Number(startTimeSeconds) * 1000 - Date.now();
   if (diffMs <= 0) return null;
 
   const totalSeconds = Math.floor(diffMs / 1000);
@@ -58,7 +67,8 @@ export function formatCountdown(startTimeSeconds: bigint): string | null {
   const parts: string[] = [];
   if (days > 0) parts.push(`${days}d`);
   if (hours > 0) parts.push(`${hours}h`);
-  if (minutes > 0 || parts.length === 0) parts.push(`${minutes}m`);
+  if (minutes > 0 || parts.length === 0)
+    parts.push(`${minutes}m`);
 
   return parts.join(" ");
 }

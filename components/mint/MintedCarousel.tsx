@@ -17,7 +17,10 @@ interface MintedCarouselProps {
   onIndexChange?: (index: number) => void;
 }
 
-export default function MintedCarousel({ tokenIds, onIndexChange }: MintedCarouselProps) {
+export default function MintedCarousel({
+  tokenIds,
+  onIndexChange,
+}: MintedCarouselProps) {
   const [current, setCurrent] = useState(0);
   const [slideClass, setSlideClass] = useState("");
 
@@ -66,7 +69,9 @@ export default function MintedCarousel({ tokenIds, onIndexChange }: MintedCarous
           >
             ← PREV
           </button>
-          <span>{formatTokenId(tokenId)} ({current + 1}/{total})</span>
+          <span>
+            {formatTokenId(tokenId)} ({current + 1}/{total})
+          </span>
           <button
             onClick={goNext}
             disabled={current === total - 1}

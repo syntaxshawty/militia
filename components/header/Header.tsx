@@ -13,18 +13,26 @@ interface HeaderProps {
   onStarBlinkDone: () => void;
 }
 
-export default function Header({ miladyMinimized, miladyHasBeenMinimized, miladyJustClaimed, onMiladyReopen, onStarBlinkDone }: HeaderProps) {
+export default function Header({
+  miladyMinimized,
+  miladyHasBeenMinimized,
+  miladyJustClaimed,
+  onMiladyReopen,
+  onStarBlinkDone,
+}: HeaderProps) {
   const { address } = useAccount();
-  const { miladyBenefitClaimed } = useMiladyEligibility(address);
+  const { miladyBenefitClaimed } =
+    useMiladyEligibility(address);
   const isClaimed = !!miladyBenefitClaimed;
 
-  const showStar = miladyMinimized || isClaimed || miladyJustClaimed;
+  const showStar =
+    miladyMinimized || isClaimed || miladyJustClaimed;
 
   const starAnimClass = miladyJustClaimed
     ? "animate-star-claim"
     : !isClaimed && miladyHasBeenMinimized
-    ? "animate-sparkle"
-    : "";
+      ? "animate-sparkle"
+      : "";
 
   return (
     <header className="sticky top-0 z-50 bg-black border-b border-green-900 flex items-center justify-between px-6 py-3">
@@ -38,17 +46,33 @@ export default function Header({ miladyMinimized, miladyHasBeenMinimized, milady
       <div className="flex items-center gap-3">
         {showStar && (
           <button
-            onClick={() => { if (!isClaimed) onMiladyReopen(); }}
+            onClick={() => {
+              if (!isClaimed) onMiladyReopen();
+            }}
             className={`leading-none ${starAnimClass}`}
             style={{
               fontSize: 28,
               lineHeight: 1,
-              color: miladyJustClaimed ? undefined : (isClaimed ? "#a4a4a4" : "#f5c000"),
+              color: miladyJustClaimed
+                ? undefined
+                : isClaimed
+                  ? "#a4a4a4"
+                  : "#f5c000",
               cursor: isClaimed ? "default" : "pointer",
-              filter: miladyJustClaimed ? undefined : (isClaimed ? "grayscale(1) brightness(0.7)" : undefined),
+              filter: miladyJustClaimed
+                ? undefined
+                : isClaimed
+                  ? "grayscale(1) brightness(0.7)"
+                  : undefined,
             }}
-            onAnimationEnd={() => { if (miladyJustClaimed) onStarBlinkDone(); }}
-            title={isClaimed ? "BENEFIT HAS BEEN CLAIMED" : "Milady benefit — click to open"}
+            onAnimationEnd={() => {
+              if (miladyJustClaimed) onStarBlinkDone();
+            }}
+            title={
+              isClaimed
+                ? "BENEFIT HAS BEEN CLAIMED"
+                : "Milady benefit — click to open"
+            }
           >
             ★
           </button>

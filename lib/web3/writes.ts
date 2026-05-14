@@ -1,4 +1,8 @@
-import { useWriteContract, useWaitForTransactionReceipt, useChainId } from "wagmi";
+import {
+  useWriteContract,
+  useWaitForTransactionReceipt,
+  useChainId,
+} from "wagmi";
 import { type Address } from "viem";
 import { MILITIA_ABI } from "@/lib/web3/abis/militia";
 import { getContractAddress } from "@/lib/web3/contract";
@@ -13,9 +17,18 @@ import { getContractAddress } from "@/lib/web3/contract";
 export function useMint() {
   const chainId = useChainId();
   const address = getContractAddress(chainId);
-  if (!address) throw new Error(`No contract deployed on chain ${chainId}`);
+  if (!address)
+    throw new Error(
+      `No contract deployed on chain ${chainId}`
+    );
 
-  const { writeContract, reset, data: txHash, isPending, error: writeError } = useWriteContract();
+  const {
+    writeContract,
+    reset,
+    data: txHash,
+    isPending,
+    error: writeError,
+  } = useWriteContract();
 
   const {
     isLoading: isConfirming,
@@ -47,9 +60,9 @@ export function useMint() {
     reset,
     txHash,
     receipt,
-    isPending,       // wallet is awaiting user signature
-    isConfirming,    // tx submitted, waiting for block confirmation
-    isConfirmed,     // tx confirmed on-chain
+    isPending, // wallet is awaiting user signature
+    isConfirming, // tx submitted, waiting for block confirmation
+    isConfirmed, // tx confirmed on-chain
     error: writeError ?? receiptError,
   };
 }

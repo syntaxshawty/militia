@@ -4,7 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-const FONT = '"MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif';
+const FONT =
+  '"MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif';
 
 const raised = {
   boxShadow:
@@ -82,7 +83,8 @@ export default function LandingPage() {
         {/* Title bar */}
         <div
           style={{
-            background: "linear-gradient(to right, #000080, #1084d0)",
+            background:
+              "linear-gradient(to right, #000080, #1084d0)",
             color: "#ffffff",
             padding: "2px 4px",
             display: "flex",
@@ -92,7 +94,13 @@ export default function LandingPage() {
             marginBottom: 2,
           }}
         >
-          <span style={{ fontSize: 11, fontWeight: "bold", letterSpacing: 0 }}>
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: "bold",
+              letterSpacing: 0,
+            }}
+          >
             MILITIA.EXE
           </span>
           <div style={{ display: "flex", gap: 2 }}>
@@ -132,29 +140,31 @@ export default function LandingPage() {
             flex: 1,
           }}
         >
-       
-            <div className="w-full h-[70%] relative flex items-center justify-center">
-    <Image
-      src="/militia-flicker.gif"
-      alt=""
-      fill
-      unoptimized
-      loading="eager"
-      className="object-contain"
-      style={{ imageRendering: "pixelated" }}
-    />
-  </div>
+          <div className="w-full h-[70%] relative flex items-center justify-center">
+            <Image
+              src="/militia-flicker.gif"
+              alt=""
+              fill
+              unoptimized
+              loading="eager"
+              className="object-contain"
+              style={{ imageRendering: "pixelated" }}
+            />
+          </div>
 
           <p
             style={{
               fontSize: 11,
-              maxWidth: '50%',
+              maxWidth: "50%",
               color: "#000000",
               margin: 0,
               textAlign: "center",
             }}
           >
-            Wanderer... whether or not you are lost, lay your fears to rest here. Leave your fears, here, at the gate, to claim your place among the Militia. 
+            Wanderer... whether or not you are lost, lay
+            your fears to rest here. Leave your fears, here,
+            at the gate, to claim your place among the
+            Militia.
           </p>
 
           <form
@@ -190,7 +200,13 @@ export default function LandingPage() {
             />
 
             {error && (
-              <p style={{ fontSize: 11, color: "#000000", margin: 0 }}>
+              <p
+                style={{
+                  fontSize: 11,
+                  color: "#000000",
+                  margin: 0,
+                }}
+              >
                 {error}
               </p>
             )}
@@ -215,7 +231,6 @@ export default function LandingPage() {
             </button>
           </form>
         </div>
-
       </div>
     </div>
   );

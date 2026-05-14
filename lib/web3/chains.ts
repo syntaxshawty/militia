@@ -13,7 +13,10 @@ export const mainnet: Chain = {
     default: { http: [env.alchemyMainnet] },
   },
   blockExplorers: {
-    default: { name: "Etherscan", url: "https://etherscan.io" },
+    default: {
+      name: "Etherscan",
+      url: "https://etherscan.io",
+    },
   },
 };
 
@@ -29,9 +32,14 @@ export const sepolia: Chain = {
     default: { http: [env.alchemySepolia] },
   },
   blockExplorers: {
-    default: { name: "Etherscan", url: "https://sepolia.etherscan.io" },
+    default: {
+      name: "Etherscan",
+      url: "https://sepolia.etherscan.io",
+    },
   },
   testnet: true,
 };
 
-export const supportedChains: [Chain, ...Chain[]] = [sepolia];
+export const supportedChains: [Chain, ...Chain[]] = [
+  sepolia,
+];

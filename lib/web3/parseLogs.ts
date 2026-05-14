@@ -1,4 +1,8 @@
-import { parseEventLogs, zeroAddress, type Log } from "viem";
+import {
+  parseEventLogs,
+  zeroAddress,
+  type Log,
+} from "viem";
 import { MILITIA_ABI } from "@/lib/web3/abis/militia";
 
 /**
@@ -27,7 +31,11 @@ export function parseMintedTokenIds(logs: Log[]): bigint[] {
     .filter((log) => log.args.from === zeroAddress)
     .flatMap((log) => {
       const ids: bigint[] = [];
-      for (let id = log.args.fromTokenId; id <= log.args.toTokenId; id++) {
+      for (
+        let id = log.args.fromTokenId;
+        id <= log.args.toTokenId;
+        id++
+      ) {
         ids.push(id);
       }
       return ids;

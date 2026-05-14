@@ -1,15 +1,27 @@
-import { useReadContracts, useReadContract, useChainId } from "wagmi";
+import {
+  useReadContracts,
+  useReadContract,
+  useChainId,
+} from "wagmi";
 import { type Address } from "viem";
 import { MILITIA_ABI } from "@/lib/web3/abis/militia";
 import { getContractAddress } from "@/lib/web3/contract";
-import { getMockQuotePrice, getMockEligibility } from "@/lib/web3/mockMintState";
+import {
+  getMockQuotePrice,
+  getMockEligibility,
+} from "@/lib/web3/mockMintState";
 
-const MOCK_MODE = process.env.NEXT_PUBLIC_MOCK_MINT_QUOTES === "true";
+const MOCK_MODE =
+  process.env.NEXT_PUBLIC_MOCK_MINT_QUOTES === "true";
 
 function useContractBase() {
   const chainId = useChainId();
   const address = getContractAddress(chainId);
-  return { address, abi: MILITIA_ABI, enabled: !!address } as const;
+  return {
+    address,
+    abi: MILITIA_ABI,
+    enabled: !!address,
+  } as const;
 }
 
 /**
@@ -22,7 +34,10 @@ export function useMintStats() {
     contracts: [
       { ...contract, functionName: "totalSupply" },
       { ...contract, functionName: "DEPLOYMENT_CAP" },
-      { ...contract, functionName: "DEFAULT_MILITIA_PRICE" },
+      {
+        ...contract,
+        functionName: "DEFAULT_MILITIA_PRICE",
+      },
       { ...contract, functionName: "INFANTRY_STRENGTH" },
     ],
     query: { enabled: contract.enabled },
@@ -47,7 +62,10 @@ export function useMintPhase() {
   const { data, ...rest } = useReadContracts({
     contracts: [
       { ...contract, functionName: "paused" },
-      { ...contract, functionName: "miladyWhitelistActive" },
+      {
+        ...contract,
+        functionName: "miladyWhitelistActive",
+      },
     ],
     query: { enabled: contract.enabled },
   });
@@ -63,35 +81,70 @@ export function useMintPhase() {
  * Fetches milady-holder eligibility for a given address.
  * Pass the connected wallet address; skip if undefined (wallet not connected).
  */
-export function useMiladyEligibility(address: Address | undefined) {
+export function useMiladyEligibility(
+  address: Address | undefined
+) {
   const contract = useContractBase();
 
-  const { data, refetch: refetchEligibility, ...rest } = useReadContracts({
+  const {
+    data,
+    refetch: refetchEligibility,
+    ...rest
+  } = useReadContracts({
     contracts: [
-      { ...contract, functionName: "canMintWithMilady", args: address ? [address] : undefined },
-      { ...contract, functionName: "miladyBenefitClaimed", args: address ? [address] : undefined },
-      { ...contract, functionName: "miladyTierSlotsRemaining" },
-      { ...contract, functionName: "miladyWhitelistActive" },
+      {
+        ...contract,
+        functionName: "canMintWithMilady",
+        args: address ? [address] : undefined,
+      },
+      {
+        ...contract,
+        functionName: "miladyBenefitClaimed",
+        args: address ? [address] : undefined,
+      },
+      {
+        ...contract,
+        functionName: "miladyTierSlotsRemaining",
+      },
+      {
+        ...contract,
+        functionName: "miladyWhitelistActive",
+      },
     ],
-    query: { enabled: !MOCK_MODE && !!address && contract.enabled },
+    query: {
+      enabled: !MOCK_MODE && !!address && contract.enabled,
+    },
   });
 
   if (MOCK_MODE) {
-    return { ...getMockEligibility(), refetchEligibility: async () => {}, ...rest };
+    return {
+      ...getMockEligibility(),
+      refetchEligibility: async () => {},
+      ...rest,
+    };
   }
 
   const canMintWithMilady = data?.[0].result;
   const miladyBenefitClaimed = data?.[1].result;
   const tierSlots = data?.[2].result;
   const miladyWhitelistActive = data?.[3].result;
-  const slotsAvailable = tierSlots ? (tierSlots[0] > BigInt(0) || tierSlots[1] > BigInt(0)) : false;
-  const hasActiveBenefit = !!miladyWhitelistActive && !miladyBenefitClaimed && !!canMintWithMilady && slotsAvailable;
+  const slotsAvailable = tierSlots
+    ? tierSlots[0] > BigInt(0) || tierSlots[1] > BigInt(0)
+    : false;
+  const hasActiveBenefit =
+    !!miladyWhitelistActive &&
+    !miladyBenefitClaimed &&
+    !!canMintWithMilady &&
+    slotsAvailable;
 
-  const miladyTier: 'free' | 'halfOff' | null = hasActiveBenefit
-    ? tierSlots && tierSlots[0] > BigInt(0) ? 'free'
-    : tierSlots && tierSlots[1] > BigInt(0) ? 'halfOff'
-    : null
-    : null;
+  const miladyTier: "free" | "halfOff" | null =
+    hasActiveBenefit
+      ? tierSlots && tierSlots[0] > BigInt(0)
+        ? "free"
+        : tierSlots && tierSlots[1] > BigInt(0)
+          ? "halfOff"
+          : null
+      : null;
 
   return {
     canMintWithMilady,
@@ -115,34 +168,59 @@ export function useTokenURIs(tokenIds: bigint[]) {
       functionName: "tokenURI" as const,
       args: [id] as const,
     })),
-    query: { enabled: tokenIds.length > 0 && contract.enabled },
+    query: {
+      enabled: tokenIds.length > 0 && contract.enabled,
+    },
   });
 
-  return data?.map((d) => d.result as string | undefined) ?? [];
+  return (
+    data?.map((d) => d.result as string | undefined) ?? []
+  );
 }
 
 /**
  * Quotes the total mint price for a given quantity, using the contract's
  * tier logic. Re-runs whenever quantity changes.
  */
-export function useQuoteMintPrice(quantity: number, account?: Address) {
+export function useQuoteMintPrice(
+  quantity: number,
+  account?: Address
+) {
   const contract = useContractBase();
 
-  const { data, isLoading, isError, error, refetch: refetchPrice } = useReadContract({
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    refetch: refetchPrice,
+  } = useReadContract({
     ...contract,
     account,
     functionName: "quoteMintPrice",
     args: [BigInt(quantity), account as Address],
     query: {
-      enabled: !MOCK_MODE && contract.enabled && quantity > 0 && !!account,
+      enabled:
+        !MOCK_MODE &&
+        contract.enabled &&
+        quantity > 0 &&
+        !!account,
       retry: 2,
     },
   });
 
-  console.log("[useQuoteMintPrice]", { quantity, account, data, isLoading, isError, error: error?.message });
+  console.log("[useQuoteMintPrice]", {
+    quantity,
+    account,
+    data,
+    isLoading,
+    isError,
+    error: error?.message,
+  });
 
   if (MOCK_MODE) {
-    const { price, error: mockError } = getMockQuotePrice(quantity);
+    const { price, error: mockError } =
+      getMockQuotePrice(quantity);
     return {
       quotedPrice: price,
       priceLoading: false,
@@ -156,7 +234,9 @@ export function useQuoteMintPrice(quantity: number, account?: Address) {
   return {
     quotedPrice: data?.totalPrice,
     priceLoading: isLoading,
-    priceError: isError ? (error?.message ?? "Price unavailable") : null,
+    priceError: isError
+      ? (error?.message ?? "Price unavailable")
+      : null,
     isFreeMint: data?.isFreeMint ?? false,
     hasDiscount: data?.hasDiscount ?? false,
     refetchPrice,
