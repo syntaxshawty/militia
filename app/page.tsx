@@ -34,7 +34,7 @@ export default function LandingPage() {
     setError(false);
 
     try {
-      const res = await fetch("/api/fears", {
+      const res = await fetch("/api/cemetery", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ fear: trimmed }),
@@ -65,7 +65,6 @@ export default function LandingPage() {
         alt=""
         fill
         priority
-        quality={100}
         className="object-cover -z-10 w-full h-full object-fill"
       />
       {/* Dialog window */}
@@ -129,19 +128,22 @@ export default function LandingPage() {
             justifyContent: "center",
             gap: 12,
             minHeight: 0,
-            overflow: "hidden",
+            overflow: "auto",
             flex: 1,
           }}
         >
-          <Image
-            src="/militia-flicker.gif"
-            loading="eager"
-            alt=""
-            width={300}
-            height={300}
-            unoptimized
-            style={{ imageRendering: "pixelated", maxWidth: "100%", height: "auto", flexShrink: 1, minHeight: 0 }}
-          />
+       
+            <div className="w-full h-[70%] relative flex items-center justify-center">
+    <Image
+      src="/militia-flicker.gif"
+      alt=""
+      fill
+      unoptimized
+      loading="eager"
+      className="object-contain"
+      style={{ imageRendering: "pixelated" }}
+    />
+  </div>
 
           <p
             style={{
