@@ -63,10 +63,18 @@ export default function LandingPage() {
     >
       <Image
         src="/win95-no-cursor.png"
-        alt=""
+        alt="Windows '95 home screen with solitare and a few other windows open"
         fill
         priority
-        className="object-cover -z-10 w-full h-full object-fill"
+        className="object-cover -z-10 w-full h-full object-fill hidden md:block"
+      />
+      <Image
+        src="/iphone-home.jpg"
+        alt="Circa 2014 iPhone home screen with wallpaper showing rain droplets on a blue-gray gradient"
+        fill
+        sizes="100vw"
+        priority
+        className="object-cover -z-10 w-full h-full object-fill block md:hidden"
       />
       {/* Dialog window */}
       <div
