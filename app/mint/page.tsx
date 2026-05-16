@@ -7,6 +7,7 @@ import { env } from "@/lib/config";
 import MintCard from "@/components/mint/MintCard";
 import MintedCarousel from "@/components/mint/MintedCarousel";
 import MiladyBenefitPopup from "@/components/mint/MiladyBenefitPopup";
+import ConnectWallet from "@/components/wallet/ConnectWallet";
 import dynamic from "next/dynamic";
 const BrailleAsciiAnimation = dynamic(
   () => import("@/components/BrailleAsciiAnimation"),
@@ -31,6 +32,11 @@ export default function Home() {
   ] = useState(false);
   const [miladyJustClaimed, setMiladyJustClaimed] =
     useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   function handleMinted(ids: bigint[]) {
     setMintedIds(ids);
@@ -78,15 +84,7 @@ export default function Home() {
     <>
       <div
         aria-hidden
-        style={{
-          position: "fixed",
-          right: 0,
-          bottom: 0,
-          width: "50vw",
-          zIndex: 1,
-          pointerEvents: "none",
-          overflow: "hidden",
-        }}
+        className="fixed right-0 bottom-0 z-[1] pointer-events-none overflow-hidden w-[100vw] md:w-[50vw] md:h-auto"
       >
         <BrailleAsciiAnimation fps={5} />
       </div>
@@ -99,6 +97,7 @@ export default function Home() {
           onStarBlinkDone={() =>
             setMiladyJustClaimed(false)
           }
+          showConnectButton={!isMobile}
         />
 
         <MiladyBenefitPopup
@@ -144,6 +143,11 @@ export default function Home() {
                   </div>
                 )}
               </div>
+              {isMobile && (
+                <div className="mt-3">
+                  <ConnectWallet />
+                </div>
+              )}
             </div>
 
             {/* Right — mint + lore */}

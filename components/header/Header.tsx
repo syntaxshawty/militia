@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import ConnectWallet from "./ConnectWallet";
+import ConnectWallet from "../wallet/ConnectWallet";
 import { useAccount } from "wagmi";
 import { useMiladyEligibility } from "@/lib/web3/reads";
 
@@ -11,6 +11,7 @@ interface HeaderProps {
   miladyJustClaimed: boolean;
   onMiladyReopen: () => void;
   onStarBlinkDone: () => void;
+  showConnectButton?: boolean;
 }
 
 export default function Header({
@@ -19,6 +20,7 @@ export default function Header({
   miladyJustClaimed,
   onMiladyReopen,
   onStarBlinkDone,
+  showConnectButton = true,
 }: HeaderProps) {
   const { address } = useAccount();
   const { miladyBenefitClaimed } =
@@ -77,7 +79,7 @@ export default function Header({
             ★
           </button>
         )}
-        <ConnectWallet />
+        {showConnectButton && <ConnectWallet />}
       </div>
     </header>
   );

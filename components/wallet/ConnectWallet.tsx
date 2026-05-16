@@ -2,6 +2,9 @@
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
+const baseBtn =
+  "flex items-center justify-center w-full md:w-auto font-mono text-xs tracking-widest px-4 py-2 transition-colors duration-150";
+
 export default function ConnectWallet() {
   return (
     <ConnectButton.Custom>
@@ -18,6 +21,7 @@ export default function ConnectWallet() {
 
         return (
           <div
+            className="w-full md:w-auto"
             {...(!ready && {
               "aria-hidden": true,
               style: {
@@ -32,7 +36,7 @@ export default function ConnectWallet() {
                 return (
                   <button
                     onClick={openConnectModal}
-                    className="group relative font-mono text-xs tracking-widest border border-green-500 bg-black text-green-400 px-4 py-2 overflow-hidden hover:text-black hover:bg-green-500 transition-colors duration-150"
+                    className={`group relative overflow-hidden border border-green-500 bg-black text-green-400 hover:text-black hover:bg-green-500 ${baseBtn}`}
                   >
                     <span className="relative z-10">
                       &gt; CONNECT_WALLET
@@ -46,7 +50,7 @@ export default function ConnectWallet() {
                 return (
                   <button
                     onClick={openChainModal}
-                    className="font-mono text-xs tracking-widest border border-red-500 bg-black text-red-400 px-4 py-2 hover:bg-red-500 hover:text-black transition-colors duration-150"
+                    className={`border border-red-500 bg-black text-red-400 hover:bg-red-500 hover:text-black ${baseBtn}`}
                   >
                     ! WRONG_NETWORK
                   </button>
@@ -56,9 +60,9 @@ export default function ConnectWallet() {
               return (
                 <button
                   onClick={openAccountModal}
-                  className="font-mono text-xs tracking-widest border border-green-500 bg-black text-green-400 px-4 py-2 hover:text-black hover:bg-green-500 transition-colors duration-150"
+                  className={`border border-green-500 bg-black text-green-400 hover:text-black hover:bg-green-500 ${baseBtn}`}
                 >
-                  [{account.displayName}]
+                  [{account.address.slice(0, 25)}...{account.address.slice(-4)}]
                 </button>
               );
             })()}
