@@ -26,13 +26,14 @@ export default function LandingPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const trimmed = value.trim();
-    if (!trimmed) {
-      setError("You cannot be fearless.");
-      return;
-    }
 
     setSubmitting(true);
     setError(false);
+
+    if (!trimmed) {
+      router.push("/mint");
+      return;
+    }
 
     try {
       const res = await fetch("/api/cemetery", {
@@ -78,11 +79,11 @@ export default function LandingPage() {
       />
       {/* Dialog window */}
       <div
+        className="w-[90vw] md:w-[50vw]"
         style={{
           ...raised,
           background: "#c0c0c0",
           padding: "2px",
-          width: "50vw",
           height: "80vh",
           display: "flex",
           flexDirection: "column",
@@ -161,9 +162,9 @@ export default function LandingPage() {
           </div>
 
           <p
+            className="max-w-[85%] md:max-w-[50%]"
             style={{
-              fontSize: 11,
-              maxWidth: "50%",
+              fontSize: 16,
               color: "#000000",
               margin: 0,
               textAlign: "center",
@@ -177,6 +178,8 @@ export default function LandingPage() {
 
           <form
             onSubmit={handleSubmit}
+            action="/mint"
+            method="get"
             style={{
               width: "100%",
               display: "flex",
@@ -235,7 +238,7 @@ export default function LandingPage() {
                 marginTop: 4,
               }}
             >
-              {submitting ? "Please wait..." : "OK"}
+              {submitting ? "Please wait..." : "Enlist now"}
             </button>
           </form>
         </div>
