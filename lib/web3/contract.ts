@@ -6,7 +6,7 @@ export const CONTRACT_ADDRESSES: Partial<
   Record<number, Address>
 > = {
   [sepolia.id]:
-    "0x52E582c0312112A4868e379e5EEBf93dd899E2cB",
+    "0x689A4Bd9968c99F66535A001336E96831f33d6d3",
 };
 
 export function getContractAddress(
