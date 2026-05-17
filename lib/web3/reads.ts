@@ -64,7 +64,7 @@ export function useMintPhase() {
       { ...contract, functionName: "paused" },
       {
         ...contract,
-        functionName: "miladyWhitelistActive",
+        functionName: "militiaWhitelistActive",
       },
     ],
     query: { enabled: contract.enabled },
@@ -104,11 +104,11 @@ export function useMiladyEligibility(
       },
       {
         ...contract,
-        functionName: "miladyTierSlotsRemaining",
+        functionName: "militiaTierSlotsRemaining",
       },
       {
         ...contract,
-        functionName: "miladyWhitelistActive",
+        functionName: "militiaWhitelistActive",
       },
     ],
     query: {
